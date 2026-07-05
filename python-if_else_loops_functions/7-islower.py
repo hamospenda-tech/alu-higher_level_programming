@@ -3,5 +3,5 @@
 
 
 def islower(c):
-    """Check if a character is lowercase using ord(), without str.upper() or str.isupper()"""
+    """Check if a character is lowercase using ord()"""
     return ord(c) >= 97 and ord(c) <= 122
