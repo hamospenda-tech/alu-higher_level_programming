@@ -9,18 +9,15 @@ def safe_print_list_integers(my_list=[], x=0):
     printed on the same line followed by a newline.
 
     Returns the real number of integers printed.
+
+    Raises an exception if x is bigger than the length of my_list.
     """
     count = 0
-    i = 0
-    try:
-        while i < x:
-            try:
-                print("{:d}".format(my_list[i]), end="")
-                count += 1
-            except (ValueError, TypeError):
-                pass
-            i += 1
-    except IndexError:
-        pass
+    for i in range(x):
+        try:
+            print("{:d}".format(my_list[i]), end="")
+            count += 1
+        except (ValueError, TypeError):
+            pass
     print()
     return count
