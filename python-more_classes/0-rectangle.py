@@ -4,4 +4,3 @@
 
 class Rectangle:
         """Represents a rectangle."""
-
