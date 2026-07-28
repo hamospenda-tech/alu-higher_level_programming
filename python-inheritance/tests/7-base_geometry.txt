@@ -59,16 +59,16 @@ It raises a ValueError if the value is negative:
 Calling it with no arguments raises a TypeError for the missing
 parameters:
 
-    >>> bg.integer_validator()
+    >>> bg.integer_validator() # doctest: +ELLIPSIS
     Traceback (most recent call last):
-    TypeError: BaseGeometry.integer_validator() missing 2 required positional arguments: 'name' and 'value'
+    TypeError: ...integer_validator() missing 2 required positional arguments: 'name' and 'value'
 
 Calling it with only the name raises a TypeError for the missing
 value:
 
-    >>> bg.integer_validator("age")
+    >>> bg.integer_validator("age") # doctest: +ELLIPSIS
     Traceback (most recent call last):
-    TypeError: BaseGeometry.integer_validator() missing 1 required positional argument: 'value'
+    TypeError: ...integer_validator() missing 1 required positional argument: 'value'
 
 Other non-integer types are also rejected with a TypeError, such as
 a tuple:
