@@ -42,3 +42,15 @@ A list with a single element behaves the same way:
     >>> single.append(42)
     >>> single.print_sorted()
     [42]
+
+Negative numbers are sorted correctly as well:
+
+    >>> negatives = MyList()
+    >>> negatives.append(3)
+    >>> negatives.append(-7)
+    >>> negatives.append(0)
+    >>> negatives.append(-1)
+    >>> negatives.print_sorted()
+    [-7, -1, 0, 3]
+    >>> print(negatives)
+    [3, -7, 0, -1]

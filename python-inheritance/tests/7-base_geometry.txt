@@ -1,0 +1,57 @@
+The ``7-base_geometry`` module
+================================
+
+Defines the ``BaseGeometry`` class, with an ``area`` method that is
+not implemented, and an ``integer_validator`` method that validates
+positive integers.
+
+Usage
+-----
+
+Import the class:
+
+    >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+    >>> bg = BaseGeometry()
+
+``area`` is not implemented and always raises an Exception:
+
+    >>> bg.area()
+    Traceback (most recent call last):
+    Exception: area() is not implemented
+
+``integer_validator`` accepts positive integers silently:
+
+    >>> bg.integer_validator("my_int", 12)
+    >>> bg.integer_validator("width", 89)
+    >>> bg.integer_validator("height", 1)
+
+It raises a TypeError if the value is not an integer:
+
+    >>> bg.integer_validator("name", "John")
+    Traceback (most recent call last):
+    TypeError: name must be an integer
+
+It also raises a TypeError for float values:
+
+    >>> bg.integer_validator("width", 3.14)
+    Traceback (most recent call last):
+    TypeError: width must be an integer
+
+It raises a TypeError for boolean values, since a bool is not
+strictly an int:
+
+    >>> bg.integer_validator("flag", True)
+    Traceback (most recent call last):
+    TypeError: flag must be an integer
+
+It raises a ValueError if the value is 0:
+
+    >>> bg.integer_validator("age", 0)
+    Traceback (most recent call last):
+    ValueError: age must be greater than 0
+
+It raises a ValueError if the value is negative:
+
+    >>> bg.integer_validator("distance", -4)
+    Traceback (most recent call last):
+    ValueError: distance must be greater than 0
