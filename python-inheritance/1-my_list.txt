@@ -1,0 +1,44 @@
+The ``1-my_list`` module
+=========================
+
+Defines the ``MyList`` class, which inherits from ``list`` and adds
+a ``print_sorted`` method.
+
+Usage
+-----
+
+Import the class:
+
+    >>> MyList = __import__('1-my_list').MyList
+
+Create an instance and add some elements:
+
+    >>> my_list = MyList()
+    >>> my_list.append(1)
+    >>> my_list.append(4)
+    >>> my_list.append(2)
+    >>> my_list.append(3)
+    >>> my_list.append(5)
+    >>> print(my_list)
+    [1, 4, 2, 3, 5]
+
+``print_sorted`` prints the list in ascending order, without
+modifying the original list:
+
+    >>> my_list.print_sorted()
+    [1, 2, 3, 4, 5]
+    >>> print(my_list)
+    [1, 4, 2, 3, 5]
+
+An empty list sorts and prints as an empty list:
+
+    >>> empty = MyList()
+    >>> empty.print_sorted()
+    []
+
+A list with a single element behaves the same way:
+
+    >>> single = MyList()
+    >>> single.append(42)
+    >>> single.print_sorted()
+    [42]
