@@ -127,3 +127,100 @@ class TestBaseSaveToFile(unittest.TestCase):
             data = json.load(f)
         self.assertEqual(len(data), 1)
         self.assertEqual(data[0]['id'], 2)
+
+
+class TestBaseFromJsonString(unittest.TestCase):
+    """Test cases for the from_json_string static method"""
+
+    def test_none_returns_empty_list(self):
+        """None input returns an empty list"""
+        self.assertEqual(Base.from_json_string(None), [])
+
+    def test_empty_string_returns_empty_list(self):
+        """Empty string input returns an empty list"""
+        self.assertEqual(Base.from_json_string(""), [])
+
+    def test_round_trip(self):
+        """from_json_string reverses to_json_string"""
+        data = [{'id': 89, 'width': 10, 'height': 4},
+                {'id': 7, 'width': 1, 'height': 7}]
+        json_str = Base.to_json_string(data)
+        self.assertEqual(Base.from_json_string(json_str), data)
+
+    def test_returns_list(self):
+        """The return value is a list"""
+        result = Base.from_json_string('[{"id": 1}]')
+        self.assertIsInstance(result, list)
+
+
+class TestBaseCreate(unittest.TestCase):
+    """Test cases for the create class method"""
+
+    def test_create_rectangle(self):
+        """create returns a Rectangle matching the dictionary"""
+        from models.rectangle import Rectangle
+        r1 = Rectangle(3, 5, 1, 0, 1)
+        r2 = Rectangle.create(**r1.to_dictionary())
+        self.assertEqual(str(r2), str(r1))
+
+    def test_create_square(self):
+        """create returns a Square matching the dictionary"""
+        from models.square import Square
+        s1 = Square(5, 2, 3, 7)
+        s2 = Square.create(**s1.to_dictionary())
+        self.assertEqual(str(s2), str(s1))
+
+    def test_create_returns_new_instance(self):
+        """The created instance is a different object"""
+        from models.rectangle import Rectangle
+        r1 = Rectangle(3, 5, 1, 0, 1)
+        r2 = Rectangle.create(**r1.to_dictionary())
+        self.assertIsNot(r1, r2)
+        self.assertFalse(r1 == r2)
+
+    def test_create_type(self):
+        """create returns an instance of the calling class"""
+        from models.rectangle import Rectangle
+        from models.square import Square
+        r = Rectangle.create(**{'id': 1, 'width': 2, 'height': 3})
+        s = Square.create(**{'id': 1, 'size': 2})
+        self.assertIsInstance(r, Rectangle)
+        self.assertIsInstance(s, Square)
+
+
+class TestBaseLoadFromFile(unittest.TestCase):
+    """Test cases for the load_from_file class method"""
+
+    def tearDown(self):
+        """Remove files created by the tests"""
+        import os
+        for f in ["Rectangle.json", "Square.json"]:
+            if os.path.exists(f):
+                os.remove(f)
+
+    def test_load_rectangles(self):
+        """Saved rectangles load back with the same attributes"""
+        from models.rectangle import Rectangle
+        r1 = Rectangle(10, 7, 2, 8, 1)
+        r2 = Rectangle(2, 4, 0, 0, 2)
+        Rectangle.save_to_file([r1, r2])
+        loaded = Rectangle.load_from_file()
+        self.assertEqual([str(o) for o in loaded], [str(r1), str(r2)])
+        for o in loaded:
+            self.assertIsInstance(o, Rectangle)
+
+    def test_load_squares(self):
+        """Saved squares load back with the same attributes"""
+        from models.square import Square
+        s1 = Square(5, 0, 0, 5)
+        s2 = Square(7, 9, 1, 6)
+        Square.save_to_file([s1, s2])
+        loaded = Square.load_from_file()
+        self.assertEqual([str(o) for o in loaded], [str(s1), str(s2)])
+        for o in loaded:
+            self.assertIsInstance(o, Square)
+
+    def test_missing_file_returns_empty_list(self):
+        """A missing file returns an empty list"""
+        from models.rectangle import Rectangle
+        self.assertEqual(Rectangle.load_from_file(), [])
