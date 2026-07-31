@@ -36,3 +36,19 @@ Errors:
     >>> add_integer("a", 1)
     Traceback (most recent call last):
     TypeError: a must be an integer
+
+Float overflow:
+
+    >>> add_integer(float('inf'))
+    Traceback (most recent call last):
+    OverflowError: cannot convert float infinity to integer
+
+    >>> add_integer(float('-inf'))
+    Traceback (most recent call last):
+    OverflowError: cannot convert float infinity to integer
+
+Float NaN:
+
+    >>> add_integer(float('nan'))
+    Traceback (most recent call last):
+    ValueError: cannot convert float NaN to integer
