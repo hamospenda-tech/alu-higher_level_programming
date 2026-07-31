@@ -1,0 +1,25 @@
+Test file for 5-text_indentation module
+
+    >>> text_indentation = __import__('5-text_indentation').text_indentation
+
+Normal usage:
+
+    >>> text_indentation("Hello. World? Yes: no")
+    Hello.
+    <BLANKLINE>
+    World?
+    <BLANKLINE>
+    Yes:
+    <BLANKLINE>
+    no
+
+Text without special characters:
+
+    >>> text_indentation("Hello World")
+    Hello World
+
+Error:
+
+    >>> text_indentation(12)
+    Traceback (most recent call last):
+    TypeError: text must be a string
