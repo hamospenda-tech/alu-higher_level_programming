@@ -1,0 +1,20 @@
+#!/usr/bin/python3
+"""Contains the class definition of a State and an instance Base"""
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+
+
+class State(Base):
+    """Represents a state for a MySQL database.
+
+    Attributes:
+        id (int): the state's id, primary key.
+        name (str): the state's name.
+    """
+
+    __tablename__ = "states"
+    id = Column(Integer, primary_key=True, nullable=False,
+                unique=True, autoincrement=True)
+    name = Column(String(128), nullable=False)
